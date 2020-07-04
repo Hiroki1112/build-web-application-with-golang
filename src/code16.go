@@ -8,12 +8,13 @@ func fibonacci(n int, c chan int) {
 		c <- x
 		x, y = y, x + y
 	}
-	close(c)//close channel
+	close(c)//close channel 
 }
 
 func main() {
 	c := make(chan int, 10)
 	go fibonacci(cap(c), c)//cap:get size of channel. here, cap(c) is 10.
+	//cがcloseされるまでchannelの値を読み込む
 	for i := range c {
 		fmt.Println(i)
 	}
